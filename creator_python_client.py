@@ -36,33 +36,53 @@ def select_http_method(method, url, headers, **data):
         raise Exception("Invalid HTTP method!")
     return response
 
-def make_url(steps, keyname, query_name, return_key, current_url, headers):
+def query_url(value, query_name, return_key, current_url, headers):
     """ Compose URL helper. """
     cmd_url = ""
-    item = steps.get(keyname, "not found")
-    if item != "not found":
-        query = select_http_method("get", current_url + query_name, headers)
-        for i in query.json()["Items"]:
-            if i[return_key] == item:
-                for j in i["Links"]:
-                    if j["rel"] == "self":
-                        cmd_url = j["href"]
+    query = select_http_method("get", current_url + query_name, headers)
+    for i in query.json()["Items"]:
+        if i[return_key] == value:
+            for j in i["Links"]:
+                if j["rel"] == "self":
+                    cmd_url = j["href"]
+    if cmd_url == "":
+        raise Exception("not found ", query_name, "with value of ", value)
     return cmd_url
+    
+def query_naming(name):
+    """TODO moving to a config file"""
+    if name == "clients":
+        query_key = "Name"
+        add_url = "clients"
+    elif name == "ObjectTypeID":
+        query_key = "ObjectTypeID"
+        add_url = "objecttypes"
+    elif name == "InstanceID":
+        query_key = "InstanceID"
+        add_url = "instances"
+    else:
+        raise "invalid naming"
+    return query_key, add_url
 
-def parse_steps(steps, headers, base_url="https://deviceserver.creatordev.io/"):
+def parse_steps(steps, headers, base_url="https://deviceserver.creatordev.io"):
     """ Parse string or dictionary to help build the steps. """
+    result_url = base_url
     # Verifies if its a string, one step only
     if isinstance(steps, str) and len(steps) > 0:
-        instance_url = base_url + steps
-        print instance_url
-        return instance_url
+        result_url = base_url + steps
+    elif isinstance(steps, list):
+        for step in steps:
+            if isinstance(step, str):
+                result_url = result_url + "/" + step
+            elif isinstance(step, tuple) and len(step) > 1:
+                query_key = query_naming(step[0])[0]
+                add_url = "/" + query_naming(step[0])[1]
+                result_url = query_url(step[1], add_url, query_key, result_url, headers)
+            else:
+                raise Exception("invalid steps")
     else:
-        # parse a dictionary with steps
-        client_url = make_url(steps, "clients", "clients", "Name", base_url, headers)
-        object_url = make_url(steps, "ObjectTypeID", "/objecttypes", "ObjectTypeID", client_url, headers)
-        instance_url = make_url(steps, "InstanceID", "/instances", "InstanceID", object_url, headers)
-        # print instance_url
-    return instance_url
+        pass
+    return result_url
 
 def request(access_key, access_secret, method="get", steps="versions", **data):
     """
