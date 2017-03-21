@@ -9,8 +9,7 @@ before_install:
     - sudo apt-get update
     - pip install --upgrade pip
 
-install: 
-    - pip install requests os
+
     
 script:
     - python test.py
