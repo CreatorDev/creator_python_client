@@ -4,7 +4,11 @@ python:
     - "3.2"
     - "3.3"
     - "3.4"
-cache: pip
+
+before_install:
+    - sudo apt-get update
+    - pip install --upgrade pip
+
 install: 
     - pip install requests os
     
