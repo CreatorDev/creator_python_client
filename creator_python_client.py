@@ -8,19 +8,22 @@ import requests
 
 def get_token(access_key, access_secret, auth_url="https://deviceserver.creatordev.io/oauth/token"):
     """ Gets device server access token. """
-    # POST Body Payload for Auth
-    payload = {'grant_type': 'password', 'username': access_key, \
-    'password': access_secret}
-    # POST Request Access Token
-    auth_response = requests.post(auth_url, data=payload)
-    # Access Token
-    token = auth_response.json()['access_token']
-    # Auth Bearer, to send on request header
-    bearer = "Bearer"+ " "+str(token)
-    # GET Request Header
-    headers = {'Content-type': 'application/json', 'Accept': 'application/json', \
-    'Authorization': bearer}
-    return headers
+    try:
+        # POST Body Payload for Auth
+        payload = {'grant_type': 'password', 'username': access_key, \
+        'password': access_secret}
+        # POST Request Access Token
+        auth_response = requests.post(auth_url, data=payload)
+        # Access Token
+        token = auth_response.json()['access_token']
+        # Auth Bearer, to send on request header
+        bearer = "Bearer"+ " "+str(token)
+        # GET Request Header
+        headers = {'Content-type': 'application/json', 'Accept': 'application/json', \
+        'Authorization': bearer}
+        return headers
+    except ValueError:
+        print ('Invalid key and secret !')
 
 def select_http_method(method, url, headers, **data):
     """ Selects HTTP method from requests module. """

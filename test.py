@@ -8,7 +8,7 @@ import unittest
 import os
 import creator_python_client
 
-CREATOR_ACCESS_KEY = os.environ['CREATOR_ACCESS_KEY']
+CREATOR_ACCESS_KEY =  os.environ['CREATOR_ACCESS_KEY']
 CREATOR_ACCESS_SECRET = os.environ['CREATOR_ACCESS_SECRET']
 
 class CreatorTest(unittest.TestCase):
