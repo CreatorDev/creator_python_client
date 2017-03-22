@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- encoding: utf-8 -*-
 """
 Python client library for creator device server.
@@ -94,5 +94,5 @@ def request(access_key, access_secret, method="get", steps="versions", **data):
         response = select_http_method(method, url, headers, **data)
         return response.json()
     except ValueError:
-        print 'Fail Decoding JSON Response !'
+        print ('Fail Decoding JSON Response !')
         return response
