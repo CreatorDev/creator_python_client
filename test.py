@@ -20,7 +20,7 @@ class CreatorTest(unittest.TestCase):
         Test connection against the device server.
         """
         self.assertEqual(type(creator_python_client.request(CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET, \
-method="get", steps="versions")), dict)
+method="get", steps=["versions"])), dict)
 
 if __name__ == '__main__':
     unittest.main()
