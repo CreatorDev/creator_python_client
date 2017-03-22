@@ -6,24 +6,32 @@ Python client library for creator device server.
 
 import requests
 
+
 def get_token(access_key, access_secret, auth_url="https://deviceserver.creatordev.io/oauth/token"):
     """ Gets device server access token. """
     try:
         # POST Body Payload for Auth
-        payload = {'grant_type': 'password', 'username': access_key, \
-        'password': access_secret}
+        payload = {
+            'grant_type': 'password',
+            'username': access_key,
+            'password': access_secret
+            }
         # POST Request Access Token
         auth_response = requests.post(auth_url, data=payload)
         # Access Token
         token = auth_response.json()['access_token']
         # Auth Bearer, to send on request header
-        bearer = "Bearer"+ " "+str(token)
+        bearer = "Bearer" + " "+str(token)
         # GET Request Header
-        headers = {'Content-type': 'application/json', 'Accept': 'application/json', \
-        'Authorization': bearer}
+        headers = {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': bearer
+            }
         return headers
     except ValueError:
         print ('Invalid key and secret !')
+
 
 def select_http_method(method, url, headers, **data):
     """ Selects HTTP method from requests module. """
@@ -39,6 +47,7 @@ def select_http_method(method, url, headers, **data):
         raise Exception("Invalid HTTP method!")
     return response
 
+
 def query_url(value, query_name, return_key, current_url, headers):
     """ Compose URL helper. """
     cmd_url = ""
@@ -51,7 +60,8 @@ def query_url(value, query_name, return_key, current_url, headers):
     if cmd_url == "":
         raise Exception("not found ", query_name, "with value of ", value)
     return cmd_url
-    
+
+
 def query_naming(name):
     """TODO moving to a config file"""
     if name == "clients":
@@ -67,6 +77,7 @@ def query_naming(name):
         raise "invalid naming"
     return query_key, add_url
 
+
 def parse_steps(steps, headers, base_url="https://deviceserver.creatordev.io"):
     """ Parse string or dictionary to help build the steps. """
     result_url = base_url
@@ -80,12 +91,14 @@ def parse_steps(steps, headers, base_url="https://deviceserver.creatordev.io"):
             elif isinstance(step, tuple) and len(step) > 1:
                 query_key = query_naming(step[0])[0]
                 add_url = "/" + query_naming(step[0])[1]
-                result_url = query_url(step[1], add_url, query_key, result_url, headers)
+                result_url = query_url(
+                    step[1], add_url, query_key, result_url, headers)
             else:
                 raise Exception("invalid steps")
     else:
         pass
     return result_url
+
 
 def request(access_key, access_secret, method="get", steps="versions", **data):
     """

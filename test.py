@@ -8,8 +8,9 @@ import unittest
 import os
 import creator_python_client
 
-CREATOR_ACCESS_KEY =  os.environ['CREATOR_ACCESS_KEY']
+CREATOR_ACCESS_KEY = os.environ['CREATOR_ACCESS_KEY']
 CREATOR_ACCESS_SECRET = os.environ['CREATOR_ACCESS_SECRET']
+
 
 class CreatorTest(unittest.TestCase):
     """
@@ -19,8 +20,10 @@ class CreatorTest(unittest.TestCase):
         """
         Test connection against the device server.
         """
-        self.assertEqual(type(creator_python_client.request(CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET, \
-method="get", steps=["versions"])), dict)
+        self.assertEqual(type(creator_python_client.request(
+            CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET,
+            method="get", steps=["versions"])), dict)
+
 
 if __name__ == '__main__':
     unittest.main()
