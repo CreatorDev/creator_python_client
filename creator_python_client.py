@@ -31,7 +31,7 @@ def get_token(access_key, access_secret,
             }
         return headers
     except ValueError:
-        print ('Invalid key and secret !')
+        print('Invalid key and secret !')
 
 
 def select_http_method(method, url, headers, **data):
@@ -111,5 +111,5 @@ def request(access_key, access_secret, method="get", steps="versions", **data):
         response = select_http_method(method, url, headers, **data)
         return response.json()
     except ValueError:
-        print ('Fail Decoding JSON Response !')
+        print('Fail Decoding JSON Response !')
         return response
