@@ -7,7 +7,8 @@ Python client library for creator device server.
 import requests
 
 
-def get_token(access_key, access_secret, auth_url="https://deviceserver.creatordev.io/oauth/token"):
+def get_token(access_key, access_secret,
+              auth_url="https://deviceserver.creatordev.io/oauth/token"):
     """ Gets device server access token. """
     try:
         # POST Body Payload for Auth
