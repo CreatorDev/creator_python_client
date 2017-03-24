@@ -11,12 +11,12 @@ Server REST API.
 
 ---
 
-## Table of Contents !!!!!!!!!!!!!!!!!!!!!
+## Table of Contents
 
 * [Getting Started](#getting-started)
 * [Jump Start](#jump-start)
 * [The Request Method](#the-request-method)
-    * [Supported HTTP Methods](#the-request-method)
+    * [Supported HTTP Methods](#supported-http-methods)
     * [Steps](#steps)
     * [Data](#data)
 * [Example Get Clients List](#example-get-clients-list)
@@ -27,12 +27,12 @@ Server REST API.
 
 ## Getting Started
 
-On the current version the python module can be used by placing 
-**creator_python_client.py** file on the project directory. Then import the 
+On the current version the python module can be used by placing - 
+**creator_python_client.py** file on the project directory. Then, import the 
 module in the code:
     
 ```python
-$ import creator_python_client
+import creator_python_client
 ```
 
 ## Jump Start
@@ -70,6 +70,9 @@ import os
 
 CREATOR_ACCESS_KEY = os.environ['CREATOR_ACCESS_KEY']
 CREATOR_ACCESS_SECRET = os.environ['CREATOR_ACCESS_SECRET']
+
+creator_python_client.request(CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET)
+
 ```
 
 Now you should have a working instance of the library that you can use to access your resources RESTfully.
@@ -86,7 +89,7 @@ The request method provide a very flexible way of accessing any resource you wou
 The structure for this method is as follows:
 
 ```python
-creator_python_client.request(CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET, method="get", steps=steps)
+creator_python_client.request(CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET, method="get", steps=steps, data=data)
 ```
 
 #### Supported HTTP Methods
@@ -107,7 +110,7 @@ method="<http_method>"
 #### Steps
 
 In the steps argument, the user provides path to the resource on the device
-Device Server. See bellow two usage examples:
+Device Server. See two usage examples bellow:
 
 ```python
 
@@ -117,7 +120,7 @@ request(CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET, method="get", steps=steps)
 ```
 
 To access AwaLWM2M objects and its instances within the Device Server, you 
-can provide the steps as the following example:
+can provide the steps as shown in the following example:
 
 ```python
 
@@ -130,7 +133,7 @@ request(CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET, method="get", steps=steps)
 
 The argument data allows receives the Payload for the PUT and POST method. 
 This functionality is useful if the user wants to update a resource on the 
-Device Server. For example
+Device Server. For example:
 
 ```python
 
@@ -138,7 +141,7 @@ creator_python_client.request(CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET, method=
 
 ```
 
-Thus, the Digital Output State is updated to True.
+Thus, the Digital Output State is updated to False.
 
 
 ## Example Get Clients List
@@ -154,7 +157,7 @@ import creator_python_client
 CREATOR_ACCESS_KEY = '<your_access_key>'
 CREATOR_ACCESS_SECRET = '<your_access_secret>'
 
-steps_ = ["clients"]
+steps = ["clients"]
 
 CLIENTS = creator_python_client.request(CREATOR_ACCESS_KEY, CREATOR_ACCESS_SECRET, method="get", steps=steps)
 
@@ -167,7 +170,7 @@ You can run the command below to initiate the tests.
 Please note that the aforementioned ENV variables need to be set for the test 
 script to work properly.
 
-```js
+```bash
 $ python test.py
 ```
 
@@ -192,6 +195,6 @@ Any Bug fixes and/or feature enhancements are welcome. Please see the
 The Python code follows [PEP 8](https://www.python.org/dev/peps/pep-0008/) 
 code styling, verified by [Flake8](http://flake8.pycqa.org/en/latest/). 
 
-Please open all non-hotfix PRs against the dev branch!
+Please open all non-hotfix PRs against the dev branch.
 
 ---

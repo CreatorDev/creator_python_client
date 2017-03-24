@@ -64,7 +64,7 @@ def query_url(value, query_name, return_key, current_url, headers):
 
 
 def query_naming(name):
-    """TODO moving to a config file"""
+    """ Compose URL helper. """
     if name == "clients":
         query_key = "Name"
         add_url = "clients"
@@ -102,9 +102,7 @@ def parse_steps(steps, headers, base_url="https://deviceserver.creatordev.io"):
 
 
 def request(access_key, access_secret, method="get", steps="versions", **data):
-    """
-    Request method
-    """
+    """ Request method. Allows to consume DS REST API. """
     try:
         headers = get_token(access_key, access_secret)
         url = parse_steps(steps, headers)
