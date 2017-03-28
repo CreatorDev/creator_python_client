@@ -7,7 +7,7 @@ The python client allows you to use
 giving the possibility to quickly implement a client, to consume the Device 
 Server REST API.
 
-[![Build Status](https://travis-ci.org/HugoSilvaSantos/creator_python_client.svg?branch=master)](https://travis-ci.org/HugoSilvaSantos/creator_python_client)
+[![Build Status](https://travis-ci.org/CreatorDev/creator_python_client.svg?branch=master)](https://travis-ci.org/CreatorDev/creator_python_client)
 
 ---
 
@@ -194,7 +194,5 @@ Any Bug fixes and/or feature enhancements are welcome. Please see the
 
 The Python code follows [PEP 8](https://www.python.org/dev/peps/pep-0008/) 
 code styling, verified by [Flake8](http://flake8.pycqa.org/en/latest/). 
-
-Please open all non-hotfix PRs against the dev branch.
 
 ---
